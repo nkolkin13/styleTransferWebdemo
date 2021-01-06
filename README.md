@@ -1,7 +1,7 @@
-Dependencies
+#Dependencies
 -python3.6
 
-Installation Instructions:
+#Installation Instructions:
 (this is tested on a desktop running ubuntu 16.04 with a 1080 ti gpu)
 -generate secret key and put in line 7 of './flaskr/__init__.py'
 -make virtual env 'python3.6 -m venv ./webdemoVenv36'
@@ -10,7 +10,7 @@ Installation Instructions:
     'ln -s ../../uploaded_ims/ ./'
     'ln -s ../../output_ims/ ./'
 
-Python Package Dependencies
+#Python Package Dependencies
 -torch 1.5 for cuda 9.2
 -imageio
 -numpy
@@ -19,7 +19,7 @@ Python Package Dependencies
 -waitress
 
 
-Startup Instructions:
+#Startup Instructions:
 In terminal window/ screen/ tmux session #1:
 '''
 source webdemoVenv36/bin/activate

@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block scriptExtra %}
+setInterval(function() {
+    var myImageElement = document.getElementById('outputImage');
+    myImageElement.src = '/static/output_ims/{{ip_path}}.png?rand=' + Math.random();
+}, 2200);
+{% endblock %}
+
+
+{% block header %}
+      <h1>{% block title %}STROTSS{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+     <article class="post"> 
+         <h2>Nicholas Kolkin, Jason Salavon, Greg Shakhnarovich</h2>
+         <p>This is a webdemo for our proposed style transfer algorithm STROTSS. The goal of style transfer is to use the style of the first image (typically a drawing or painting) to render the content of the second image (typically a photograph).</p>
+
+      <form method="post" enctype=multipart/form-data>
+
+      <div class="buttonBoxBig" style="height: 40px">
+        <div class="buttonBoxSmall">
+          <label>Style:</label>
+          <input name="styleName" id="styleName" type=file value="{{ request.files['styleName'] }}" oninput="preview_image(event,'style_prev')">
+          </div>
+
+        <div class="buttonBox">
+          <label>Output:</label>
+        </div>
+
+        <div class="buttonBoxSmall">
+        <label>Content:</label>
+        <input name="contentName" id="contentName" type=file value="{{ request.files['contentName'] }}" oninput="preview_image(event,'content_prev')">       
+        </div>
+      </div>
+
+      <div style="width: 1332px; height:512px; margin-right: auto; margin-left: auto;">
+        <div class="floatingBoxSmall">
+        <img id="style_prev" src="/static/uploaded_ims/{{ip_path_s}}" alt="missing style">
+        </div>
+
+        <div class="floatingBox">
+        <img id="outputImage" src="/static/output_ims/{{ip_path}}.png" alt="missing output">
+        </div>
+
+        <div class="floatingBoxSmall">
+          <img id="content_prev" src="/static/uploaded_ims/{{ip_path_c}}" alt="missing content">
+        </div>
+      </div>
+
+
+      <div class="buttonBoxBig" style="height: 100px">
+        <div class="buttonBoxSmall">
+        </div>
+        <div class="buttonBox">
+          <label for="contentWeight">Content Weight (Default=1.0, Min=0.0, Max=4.0):  </label><output name="cwOutput" id="cwOutput">1</output>
+          <input type="range" id="cwInput" name="contentWeight" min="0" max="16" value="4" style="width: 100%;" oninput="cwOutput.value = cwInput.value/4.0">
+          
+          <br>
+          <div style="width:150px; margin-right: auto; margin-left: auto;"> <input type="submit" value="Style Transfer!"> </div>
+        </div>
+
+        <div class="buttonBoxSmall"> 
+        </div>
+      </div>
+
+
+      </form>
+      <h1>Instructions</h1>
+      <ul>
+        <li>Upload the desired style and content images</li>
+        <li>Increasing'Content Weight' will make the output look more similar to the content image, decreasing it will make the output take on more traits of the style image (the default is a good setting to try first)  </li>
+        <li>Press 'Style Transfer!' and you'll see the output being generated in real time, progress is displayed in the upper left corner (it will take about 2 minutes, but might be slower if other people are also using the website)</li>
+        <li>Download the result if you'd like to keep it, otherwise you won't be able to access it again after leaving the page</li>
+      </ul>
+    </article>
+
+    <hr>
+{% endblock %}

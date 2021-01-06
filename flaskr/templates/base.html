@@ -1,0 +1,37 @@
+<!doctype html>
+<head>
+  <script type='text/javascript'>
+  function preview_image(event,o_id) 
+  {
+   var reader = new FileReader();
+   
+   reader.onload = function()
+   {
+    var output = document.getElementById(o_id);
+    output.src = reader.result;
+   }
+
+   reader.readAsDataURL(event.target.files[0]);
+  
+  }
+  {% block scriptExtra %}{% endblock %}
+  </script>
+  <title>Demo-{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"> 
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<nav>
+    <h1><a href="{{ url_for('blog.land') }}">STROTSS (CVPR 2019)</a></h1> 
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>
